@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FC Entregas</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; background: #f5f5f5; }
+    header { background: #ff3c3c; color: white; padding: 20px; text-align: center; }
+    .container { max-width: 800px; margin: auto; padding: 20px; }
+    .card { background: white; padding: 20px; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+    h2 { margin-top: 0; }
+    input, textarea, select, button {
+      width: 100%; padding: 10px; margin-top: 10px;
+      border-radius: 8px; border: 1px solid #ccc;
+    }
+    button {
+      background: #ff3c3c; color: white; border: none; cursor: pointer;
+      font-weight: bold;
+    }
+    button:hover { background: #e63232; }
+    .price-table { font-size: 14px; }
+    .price-table p { margin: 5px 0; }
+    .alert { color: red; font-weight: bold; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>FC ENTREGAS</h1>
+  <p>Rápido, seguro e confiável!</p>
+  <p><strong>Atendimento: 11h às 18h</strong></p>
+</header>
+
+<div class="container">
+
+  <div class="card">
+    <h2>Fazer Pedido</h2>
+    <p class="alert" id="alerta"></p>
+
+    <input type="text" id="nome" placeholder="Seu nome" required>
+    <input type="tel" id="telefone" placeholder="Seu telefone" required>
+    
+    <textarea id="descricao" placeholder="Descreva o produto"></textarea>
+    <input type="text" id="local" placeholder="Local da entrega">
+    <input type="date" id="data">
+    
+    <label>Enviar foto da recomendação:</label>
+    <input type="file" id="foto" accept="image/*">
+
+    <button onclick="enviarPedido()">Enviar Pedido</button>
+  </div>
+
+  <div class="card price-table">
+    <h2>Tabela de Preço</h2>
+    <p>0 a 1,5 km — R$ 7,00</p>
+    <p>1,6 a 2,3 km — R$ 8,00</p>
+    <p>2,4 a 3,1 km — R$ 9,00</p>
+    <p>3,2 a 3,9 km — R$ 10,00</p>
+    <p>4,0 a 4,7 km — R$ 11,00</p>
+    <p>4,8 a 5,5 km — R$ 12,00</p>
+    <p>5,6 a 6,3 km — R$ 13,00</p>
+    <p>6,4 a 7,1 km — R$ 14,00</p>
+    <p>7,2 a 7,9 km — R$ 15,00</p>
+    <p>8,0 a 8,7 km — R$ 16,00</p>
+    <p>8,8 a 9,5 km — R$ 17,00</p>
+    <p>9,6 a 10,3 km — R$ 18,00</p>
+    <p>10,4 a 11,1 km — R$ 19,00</p>
+    <p>11,2 a 11,9 km — R$ 20,00</p>
+    <p>12,0 a 13,0 km — R$ 25,00</p>
+  </div>
+
+</div>
+
+<script>
+function enviarPedido() {
+  const agora = new Date();
+  const hora = agora.getHours();
+
+  if (hora < 11 || hora > 18) {
+    document.getElementById('alerta').innerText = 'Pedidos só podem ser feitos entre 11h e 18h';
+    return;
+  }
+
+  const nome = document.getElementById('nome').value;
+  const telefone = document.getElementById('telefone').value;
+  const descricao = document.getElementById('descricao').value;
+  const local = document.getElementById('local').value;
+  const data = document.getElementById('data').value;
+
+  if (!nome || !telefone) {
+    document.getElementById('alerta').innerText = 'Preencha nome e telefone';
+    return;
+  }
+
+  const mensagem = `Pedido FC Entregas:%0A
+Nome: ${nome}%0A
+Telefone: ${telefone}%0A
+Produto: ${descricao}%0A
+Local: ${local}%0A
+Data: ${data}`;
+
+  const numero = '559991728929';
+  const url = `https://wa.me/${numero}?text=${mensagem}`;
+
+  window.open(url, '_blank');
+}
+</script>
+
+</body>
+</html>
